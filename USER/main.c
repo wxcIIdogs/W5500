@@ -70,8 +70,7 @@ int32_t loopback_tcpc(uint8_t sn, uint8_t* buf, uint8_t* destip, uint16_t destpo
 
    // Port number for TCP client (will be increased)
    uint16_t any_port = 	50000;
-	 uint8_t sw = getSn_SR(sn);
-	 //printf("sw = %X\n",sw);
+	 uint8_t sw = getSn_SR(sn);	 
    switch(sw)
    {
       case SOCK_ESTABLISHED :
@@ -94,7 +93,7 @@ int32_t loopback_tcpc(uint8_t sn, uint8_t* buf, uint8_t* destip, uint16_t destpo
 //			     if(ret <= 0) 
 //						 return ret; // If the received data length <= 0, receive failed and process end
 			     sentsize = 0;
-					 return ret;
+					 return size;
 			// Data sentsize control
 //			    while(size != sentsize)
 //			    {
@@ -175,6 +174,7 @@ void my_ip_conflict(void)
 	while(1); // this example is halt.
 }
 uint8_t buff[2048];
+uint8_t sendbuf[1024]= {""};
 int main(void)
 {
 		uint8_t memsize[2][8] = { {2,2,2,2,2,2,2,2},{2,2,2,2,2,2,2,2}};
@@ -226,11 +226,11 @@ int main(void)
 			int rev = loopback_tcpc(1,buf,destip,destport);
 			if(rev)
 			{
-				sprintf((char *)buf,"%d\r\n",rev);
-				send(1, buf, 10); 				
+				sprintf((char *)sendbuf,"%d\r\n",rev);
+				send(1, sendbuf, 10); 				
+				send(1, buf, rev); 	
 				memset(buf,'\0',rev);
-			}
-			
+			}			
 		}
 }
 
