@@ -1,0 +1,26 @@
+﻿#stm32过滤文件列表
+**/MDK-ARM/*
+!**/MDK-ARM/*.uvoptx
+!**/MDK-ARM/*.uvprojx
+!**/MDK-ARM/startup_stm32*.s
+
+#各类文本编辑器过滤
+
+#vs code		
+.vscode/
+
+#Source Insight
+*.IAB
+*.IAD
+*.IMB
+*.IMD
+*.PFI
+*.PO
+*.PR
+*PRI
+*.PS
+*.SearchResults
+*.WK3
+
+#make file
+**/obj/*
